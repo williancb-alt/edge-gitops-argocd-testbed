@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/YOUR_GITHUB_USERNAME/edge-gitops-argocd-testbed.git
+    repoURL: https://github.com/williancb-alt/edge-gitops-argocd-testbed.git
     targetRevision: main
     path: apps/sample-app/overlays/edge-node-1
 

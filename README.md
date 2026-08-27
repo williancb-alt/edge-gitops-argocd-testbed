@@ -20,7 +20,7 @@ Prerequisites:
 
 1. Clone the repo:
    ```bash
-   git clone https://github.com/<you>/edge-gitops-argocd-testbed.git
+   git clone https://github.com/williancb-alt/edge-gitops-argocd-testbed.git
    cd edge-gitops-argocd-testbed
    ```
 

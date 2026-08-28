@@ -21,15 +21,22 @@ The architecture consists of:
 
 The deployment workflow is:
 
-Git Repository
-↓
-Argo CD
-↓
-K3s / Kubernetes
-↓
-Application Deployment
-↓
-Pods
+````markdown
+### Deployment Workflow
+
+```mermaid
+flowchart TD
+    G["Git Repository<br/>Desired Application State"]
+    A["Argo CD<br/>Edge-Local Reconciliation"]
+    K["K3s / Kubernetes<br/>Edge Cluster"]
+    D["Application Deployment"]
+    P["Application Pods"]
+
+    G -->|"Pull desired state"| A
+    A -->|"Reconcile"| K
+    K -->|"Manage"| D
+    D -->|"Run"| P
+
 
 Argo CD operates within the edge cluster and retrieves the desired application configuration from Git for local reconciliation.
 

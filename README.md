@@ -21,7 +21,6 @@ The architecture consists of:
 
 The deployment workflow is:
 
-````markdown
 ### Deployment Workflow
 
 ```mermaid
@@ -36,6 +35,7 @@ flowchart TD
     A -->|"Reconcile"| K
     K -->|"Manage"| D
     D -->|"Run"| P
+```
 
 
 Argo CD operates within the edge cluster and retrieves the desired application configuration from Git for local reconciliation.
@@ -66,3 +66,4 @@ infra/            Testbed and infrastructure scripts
 security/         Security-related notes and considerations
 README.md         Overview of the artefact and project
 QUICKSTART.md     Setup and execution guide
+```

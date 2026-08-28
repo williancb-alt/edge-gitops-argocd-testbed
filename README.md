@@ -1,66 +1,57 @@
-# Decentralized Pull‑Based GitOps for Edge Clusters
+# Edge-Local Pull-Based GitOps for Edge Clusters
 
-A reference implementation and experimental testbed for a pull‑based GitOps architecture using K3s and Argo CD, designed for resource‑constrained edge nodes with unstable networks.
+## Overview
 
-Edge clusters often operate under severe network instability (high latency, packet loss, intermittent blackouts). Traditional push‑based CI/CD pipelines assume reliable connectivity and a central controller, leading to high deployment failure rates and security concerns. This project implements and evaluates a decentralized, pull‑based GitOps pattern where each edge node autonomously reconciles its state from Git.
+This repository contains the artefact and experimental testbed developed for the dissertation:
+
+**Edge-Local Pull-Based GitOps for Edge Clusters**
+
+The project implements a pull-based GitOps deployment workflow using K3s, K3d, Argo CD, and Kustomize. It provides a reproducible multi-node Kubernetes environment for evaluating application-state reconciliation and workload convergence under controlled node and network degradation.
 
 ## Architecture
 
-- Central Git repository as source of truth.
-- Multiple K3s clusters representing edge nodes.
-- Each cluster runs its own Argo CD instance that pulls manifests from Git and reconciles locally.
-- No inbound ports required from outside; all connections are outbound from the cluster to Git.
+The architecture consists of:
 
-## Quickstart
+- Git as the version-controlled source of desired application configuration.
+- K3d providing a reproducible containerised K3s environment.
+- K3s providing lightweight Kubernetes orchestration.
+- Argo CD operating within the edge cluster as the GitOps reconciliation controller.
+- Kustomize providing declarative Kubernetes configuration management.
+- Kubernetes managing application workload placement and Pod lifecycle.
 
-Prerequisites:
-- Docker / VMs
-- kubectl, helm (if used)
-- Git
+The deployment workflow is:
 
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/williancb-alt/edge-gitops-argocd-testbed.git
-   cd edge-gitops-argocd-testbed
-   ```
+Git Repository
+↓
+Argo CD
+↓
+K3s / Kubernetes
+↓
+Application Deployment
+↓
+Pods
 
-2. Provision edge clusters (example):
-   ```bash
-   ./infra/scripts/setup-k3s.sh
-   ```
+Argo CD operates within the edge cluster and retrieves the desired application configuration from Git for local reconciliation.
 
-3. Install Argo CD on each cluster:
-   ```bash
-   ./infra/scripts/install-argocd.sh
-   ```
+The architecture remains dependent on upstream Git connectivity when new desired-state revisions need to be retrieved.
 
-4. Deploy the sample application via GitOps:
-   ```bash
-   kubectl apply -f clusters/edge-node-1/apps/sample-app/base
-   ```
+## Experimental Evaluation
 
-5. Simulate network issues:
-   ```bash
-   ./experiments/scripts/simulate-packet-loss.sh edge-node-1
-   ```
+The testbed is used to evaluate:
 
-6. Observe Argo CD reconciliation:
-   - Open Argo CD UI or use `argocd app get <app-name>`.
+1. Baseline application synchronisation.
+2. Git-based replica scaling.
+3. Application-state convergence.
+4. Node degradation and isolation.
+5. Deployment configuration changes during node disruption.
+6. Workload rescheduling and recovery.
 
-## Experiments
+The experiments are conducted under controlled conditions using K3d/K3s.
 
-See [Experiment Design](docs/experiment-design.md) for details.
+## Repository Structure
 
-Key scenarios:
-- Healthy network
-- High latency
-- Packet loss
-- Intermittent blackouts
-
-Results are summarised in `experiments/results/metrics.csv` and visualised in `experiments/results/plots/`.
-
-## Mapping to Dissertation
-
-- Chapter 3 (Design): see `docs/architecture.md` and `docs/diagrams/`.
-- Chapter 4 (Implementation): see `infra/`, `clusters/`, and `apps/`.
-- Evaluation: see `experiments/` and `docs/experiment-design.md`.
+```text
+clusters/       Kubernetes application configuration
+docs/            Architecture and experimental documentation
+infra/           Testbed setup and installation scripts
+experiments/     Experiment scripts and recorded results

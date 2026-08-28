@@ -104,10 +104,10 @@ kubectl apply -f clusters/edge-node-1/argocd/apps/sample-app.yaml
 Verify the application:
 
 ```bash
-argocd app get <app-name>
+argocd app get <sample-app>
 ```
 
-Replace `<app-name>` with the application name defined in the Argo CD application manifest.
+Replace `<sample-app>` with the application name defined in the Argo CD application manifest.
 
 Argo CD retrieves the application configuration from Git and begins reconciling it with the Kubernetes cluster.
 
@@ -138,7 +138,7 @@ The `-o wide` option provides additional information about Pod placement, includ
 The Argo CD application can also be checked using:
 
 ```bash
-argocd app get <app-name>
+argocd app get <sample-app>
 ```
 
 These observations allow the application state, Pod placement, node status, and Argo CD synchronisation state to be inspected.
@@ -182,7 +182,7 @@ kubectl get pods -o wide
 7. Check the Argo CD application:
 
 ```bash
-argocd app get <app-name>
+argocd app get <sample-app>
 ```
 
 Argo CD retrieves the updated desired state from Git and reconciles it with the local Kubernetes environment.
@@ -262,7 +262,7 @@ kubectl get pods -o wide -w
 The Argo CD application can be monitored using:
 
 ```bash
-argocd app get <app-name>
+argocd app get <sample-app>
 ```
 
 The purpose of the experiment is to determine whether the requested application state is achieved under the defined node/network disruption condition.
@@ -294,7 +294,7 @@ kubectl get pods -o wide
 ### Argo CD Application
 
 ```bash
-argocd app get <app-name>
+argocd app get <sample-app>
 ```
 
 These observations provide evidence of node status, workload placement, Deployment state, Argo CD synchronisation, and application-state convergence.

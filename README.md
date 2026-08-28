@@ -60,8 +60,6 @@ The experiments are conducted under controlled conditions using K3d/K3s.
 ```text
 apps/             Kubernetes application manifests and Kustomize configuration
 clusters/         Argo CD application definitions for the edge cluster
-docs/             Architecture and supporting documentation
-security/         Security-related notes and considerations
 README.md         Overview of the artefact and project
 QUICKSTART.md     Setup and execution guide
 ```
